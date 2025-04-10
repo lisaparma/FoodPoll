@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/foodPoll/static/css/main.585d3df5.css",
+    "main.js": "/foodPoll/static/js/main.9283486e.js",
+    "index.html": "/foodPoll/index.html",
+    "main.585d3df5.css.map": "/foodPoll/static/css/main.585d3df5.css.map",
+    "main.9283486e.js.map": "/foodPoll/static/js/main.9283486e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.585d3df5.css",
+    "static/js/main.9283486e.js"
+  ]
+}

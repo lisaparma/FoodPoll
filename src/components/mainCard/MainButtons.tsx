@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import { Button, TextField, Typography } from "@mui/material";
+import { Card } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 function MainButtons() {
+    
+    const navigate = useNavigate();
+    
     const [pollId, setPollId] = useState("");
     
-    const newPoll = () => window.location.href = '/?id=123'
+    const newPoll = () => navigate('/poll?id=123');
     
-    const answerPoll = () => window.location.href = `/?id=${pollId}`
+    const answerPoll = () => navigate(`/poll?id=${pollId}`);
     
-    const resultsPoll = () => window.location.href = `/?id=${pollId}&result=true`
+    const resultsPoll = () =>navigate(`/result?id=${pollId}`);
 
     return (
-        <>
+        <Card>
+            <Typography color="primary" fontSize="3rem" fontWeight="bold" textAlign="center">
+                Food Poll
+            </Typography>
             <Button onClick={newPoll} variant="contained" size="large">Nuovo Poll</Button>
             <Box>
                 <Typography color="white">Esiste già un poll?</Typography>
@@ -44,7 +52,7 @@ function MainButtons() {
                     </Button>
                 </div>
             </Box>
-        </>
+        </Card>
     );
 }
 

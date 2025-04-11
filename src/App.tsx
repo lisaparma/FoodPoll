@@ -1,21 +1,13 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styled from "styled-components";
 import PollCard from "./components/pollCard/PollCard";
 import MainButtons from "./components/mainCard/MainButtons";
 import backgroundImg from "./assets/food.png";
-import { createTheme, ThemeProvider, Typography } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 import { grey, blueGrey,  } from '@mui/material/colors';
+import { HashRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-    const pollId = new URLSearchParams(window.location.search).get('id');
-    const result = new URLSearchParams(window.location.search).get('result');
-    
-    const CardContent = useMemo(() => {
-        if (pollId && result) return (<div>Poll result</div>);
-        if (pollId) return (<PollCard id={pollId} />);
-        return <MainButtons />;
-    }, [pollId, result]);
-    
     const theme = createTheme({
         palette: {
             primary: blueGrey,
@@ -25,14 +17,14 @@ function App() {
     
     return (
         <ThemeProvider theme={theme}>
-            <Page>
-                <Card>
-                    <Typography color="primary" fontSize="3rem" fontWeight="bold" textAlign="center">
-                        Food Poll {pollId && `#${pollId}`}
-                    </Typography>
-                    {CardContent}
-                </Card>
-            </Page>
+            <HashRouter>
+                <Page>
+                    <Routes>
+                        <Route path="/" element={<MainButtons />} />
+                        <Route path="/poll" element={<PollCard />} />
+                    </Routes>
+                </Page>
+            </HashRouter>
         </ThemeProvider>
     );
 }
@@ -47,7 +39,8 @@ const Page = styled.div`
     width: 100%;
     overflow: hidden;
 `;
-const Card = styled.div`
+
+export const Card = styled.div`
     display: flex;
     flex-direction: column;
     max-height: 80%;

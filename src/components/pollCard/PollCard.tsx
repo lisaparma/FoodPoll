@@ -5,8 +5,13 @@ import styled from "styled-components";
 import PlaceSection from "./PlaceSection";
 import { Typography, TextField, Button } from "@mui/material";
 import { Send } from '@mui/icons-material';
+import { Card } from "../../App";
+import { useSearchParams } from "react-router-dom";
 
-function PollCard({ id }: { id: string }) {
+function PollCard() {
+    const [params] = useSearchParams();
+    const id = params.get('id');
+    
     const [name, setName] = React.useState("");
     
     const groupedPlaces = groupBy(places, (place: Place) =>
@@ -23,7 +28,10 @@ function PollCard({ id }: { id: string }) {
     ))
     
     return (
-        <>
+        <Card>
+            <Typography color="primary" fontSize="3rem" fontWeight="bold" textAlign="center">
+                Food Poll #{id}
+            </Typography>
             <TextField
                 value={name}
                 onChange={e => setName(e.target.value)}
@@ -31,9 +39,9 @@ function PollCard({ id }: { id: string }) {
                 label="Nome"
                 style={{ backgroundColor: "white", borderRadius: "5px"}}
             />
-            <Card>
+            <CardLoc>
                 {Locations}
-            </Card>
+            </CardLoc>
             <Button
                 variant="contained"
                 color="primary"
@@ -43,11 +51,11 @@ function PollCard({ id }: { id: string }) {
             >
                 Invia
             </Button>
-        </>
+        </Card>
     );
 }
 
-const Card = styled.div`
+const CardLoc = styled.div`
     display: flex;
     flex: 1;
     overflow-y: auto;

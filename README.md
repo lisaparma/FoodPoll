@@ -1,3 +1,3 @@
-# Food Poll
+# Food PollCard
 
---> Stay tuned for the next version of Food Poll! <--
+--> Stay tuned for the next version of Food PollCard! <--

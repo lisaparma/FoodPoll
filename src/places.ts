@@ -9,7 +9,7 @@ export const places: Place[] = [
     {
         id: '1',
         name: 'Toshi',
-        type: 'Sushi',
+        type: 'sushi',
         location: 'piramidi'
     },
     {
@@ -29,5 +29,29 @@ export const places: Place[] = [
         name: 'Busato',
         type: 'bar',
         location: ''
-    }
+    },
+    {
+        id: '5',
+        name: 'Burger King',
+        type: 'fastfood',
+        location: 'piramidi'
+    },
+    {
+        id: '6',
+        name: 'Löwengrube',
+        type: 'Tedesco',
+        location: 'emisfero'
+    },
+    {
+        id: '7',
+        name: 'Billy Tacos',
+        type: 'fastfood',
+        location: 'emisfero'
+    },
+    {
+        id: '8',
+        name: 'Old Wild West',
+        type: 'fastfood',
+        location: 'emisfero'
+    },
 ]

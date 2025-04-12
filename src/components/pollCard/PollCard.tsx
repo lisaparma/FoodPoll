@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { groupBy, map } from 'lodash';
 import { places } from "../../places";
 import styled from "styled-components";
@@ -8,8 +8,13 @@ import { Send, ExpandMore } from '@mui/icons-material';
 import GlassCard from "../GlassCard";
 import { VotesMap } from "../../types/Vote";
 import { Place } from "../../types/Place";
+import Firebase from "../../Firebase";
+import { useSearchParams } from "react-router-dom";
 
 function PollCard() {
+    const [params] = useSearchParams();
+    const id = params.get('id');
+    
     const [name, setName] = useState("");
     const [votes, setVotes] = useState<VotesMap>({});
     
@@ -30,6 +35,12 @@ function PollCard() {
         </Accordion>
     ))
     
+    const vote = useCallback(() => {
+        Firebase.addVote(id!, name, votes).then(() => {
+            Firebase.getResults(id!).then(results => console.log(results));
+        })
+    }, [id, name, votes]);
+    
     return (
         <GlassCard>
             <TextField
@@ -45,7 +56,7 @@ function PollCard() {
             <Button
                 variant="contained"
                 color="primary"
-                onClick={() => setName("")}
+                onClick={vote}
                 size="large"
                 endIcon={<Send />}
                 disabled={!name || Object.keys(votes).length === 0}

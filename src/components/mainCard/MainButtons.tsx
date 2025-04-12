@@ -3,13 +3,16 @@ import styled from "styled-components";
 import { Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import GlassCard from "../GlassCard";
+import Firebase from "../../Firebase";
 
 function MainButtons() {
     const navigate = useNavigate();
     
     const [pollId, setPollId] = useState("");
     
-    const newPoll = () => navigate('/poll?id=123');
+    const newPoll = () => {
+        Firebase.createPoll().then((id) => navigate(`/poll?id=${id}`));
+    }
     
     const answerPoll = () => navigate(`/poll?id=${pollId}`);
     

@@ -1,28 +1,23 @@
-export type Place = {
-    id: string;
-    name: string;
-    type: string;
-    location: string;
-}
+import { Place } from "./types/Place";
 
 export const places: Place[] = [
     {
         id: '1',
         name: 'Toshi',
         type: 'sushi',
-        location: 'piramidi'
+        location: 'Piramidi'
     },
     {
         id: '2',
         name: 'McDonald',
         type: 'fastfood',
-        location: 'emisfero'
+        location: 'Palladio'
     },
     {
         id: '3',
         name: 'La Piadineria',
         type: 'piadina',
-        location: 'emisfero'
+        location: 'Palladio'
     },
     {
         id: '4',
@@ -34,24 +29,24 @@ export const places: Place[] = [
         id: '5',
         name: 'Burger King',
         type: 'fastfood',
-        location: 'piramidi'
+        location: 'Piramidi'
     },
     {
         id: '6',
         name: 'Löwengrube',
         type: 'Tedesco',
-        location: 'emisfero'
+        location: 'Palladio'
     },
     {
         id: '7',
         name: 'Billy Tacos',
         type: 'fastfood',
-        location: 'emisfero'
+        location: 'Palladio'
     },
     {
         id: '8',
         name: 'Old Wild West',
         type: 'fastfood',
-        location: 'emisfero'
+        location: 'Palladio'
     },
 ]

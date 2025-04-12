@@ -1,37 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { groupBy, map } from 'lodash';
-import { Place, places } from "../../places";
+import { places } from "../../places";
 import styled from "styled-components";
 import PlaceSection from "./PlaceSection";
-import { Typography, TextField, Button } from "@mui/material";
-import { Send } from '@mui/icons-material';
-import { Card } from "../../App";
-import { useSearchParams } from "react-router-dom";
+import { Typography, TextField, Button, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import { Send, ExpandMore } from '@mui/icons-material';
+import GlassCard from "../GlassCard";
+import { VotesMap } from "../../types/Vote";
+import { Place } from "../../types/Place";
 
 function PollCard() {
-    const [params] = useSearchParams();
-    const id = params.get('id');
-    
-    const [name, setName] = React.useState("");
+    const [name, setName] = useState("");
+    const [votes, setVotes] = useState<VotesMap>({});
     
     const groupedPlaces = groupBy(places, (place: Place) =>
-        place.location || 'Senza posizione'
+        place.location || 'Altro'
     );
     
     const Locations = map(groupedPlaces, (group, location) => (
-        <div key={location}>
-            <Typography style={{ fontSize: '1rem' }}>📍 {location}</Typography>
+        <Accordion defaultExpanded disableGutters>
+            <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography flex="1rem" fontWeight="bold">📍 {location}</Typography>
+            </AccordionSummary>
+            <AccordionDetails style={{ padding: 0}}>
             {map(group, (place) => (
-                <PlaceSection key={place.id} place={place} />
+                <PlaceSection key={place.id} place={place} setVotes={setVotes}/>
             ))}
-        </div>
+            </AccordionDetails>
+        </Accordion>
     ))
     
     return (
-        <Card>
-            <Typography color="primary" fontSize="3rem" fontWeight="bold" textAlign="center">
-                Food Poll #{id}
-            </Typography>
+        <GlassCard>
             <TextField
                 value={name}
                 onChange={e => setName(e.target.value)}
@@ -39,28 +39,26 @@ function PollCard() {
                 label="Nome"
                 style={{ backgroundColor: "white", borderRadius: "5px"}}
             />
-            <CardLoc>
+            <Accordions>
                 {Locations}
-            </CardLoc>
+            </Accordions>
             <Button
                 variant="contained"
                 color="primary"
                 onClick={() => setName("")}
                 size="large"
                 endIcon={<Send />}
+                disabled={!name || Object.keys(votes).length === 0}
             >
                 Invia
             </Button>
-        </Card>
+        </GlassCard>
     );
 }
 
-const CardLoc = styled.div`
-    display: flex;
+const Accordions = styled.div`
     flex: 1;
     overflow-y: auto;
-    flex-direction: column;
-    padding: 0.5rem;
     background: white;
     width: 30rem;
     max-width: 80vw;

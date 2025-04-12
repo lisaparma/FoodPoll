@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import { Button, TextField, Typography } from "@mui/material";
-import { Card } from "../../App";
 import { useNavigate } from "react-router-dom";
+import GlassCard from "../GlassCard";
 
 function MainButtons() {
-    
     const navigate = useNavigate();
     
     const [pollId, setPollId] = useState("");
@@ -17,13 +16,10 @@ function MainButtons() {
     const resultsPoll = () =>navigate(`/result?id=${pollId}`);
 
     return (
-        <Card>
-            <Typography color="primary" fontSize="3rem" fontWeight="bold" textAlign="center">
-                Food Poll
-            </Typography>
+        <GlassCard>
             <Button onClick={newPoll} variant="contained" size="large">Nuovo Poll</Button>
             <Box>
-                <Typography color="white">Esiste già un poll?</Typography>
+                <Typography color="white">Il poll esiste già?</Typography>
                 <TextField
                     value={pollId}
                     onChange={e => setPollId(e.target.value)}
@@ -46,13 +42,13 @@ function MainButtons() {
                         onClick={resultsPoll}
                         variant="contained"
                         color="secondary"
-                        disabled={pollId.length === 0}
+                        disabled={true}
                     >
                         Risultati
                     </Button>
                 </div>
             </Box>
-        </Card>
+        </GlassCard>
     );
 }
 

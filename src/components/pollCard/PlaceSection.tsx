@@ -1,12 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Dispatch, SetStateAction } from 'react';
 import { Checkbox, Rating, Typography } from "@mui/material";
 import { LunchDining } from '@mui/icons-material';
-import { Place } from "../../places";
 import styled from "styled-components";
-
-function PlaceSection({ place }: { place: Place }) {
+import { Place } from "../../types/Place";
+import { VotesMap } from "../../types/Vote";
+type PlaceSectionProps = {
+    place: Place;
+    setVotes: Dispatch<SetStateAction<VotesMap>>;
+}
+function PlaceSection({ place, setVotes }: PlaceSectionProps) {
     const [checked, setChecked] = React.useState(false);
-    const [rating, setRating] = React.useState<number | null>(1);
+    const [rating, setRating] = React.useState<number | null>(0);
     
     useEffect(() => {
         if (checked) setRating(1);
@@ -14,8 +18,19 @@ function PlaceSection({ place }: { place: Place }) {
     }, [checked]);
     
     useEffect(() => {
-        if (rating === null) {
+        if (rating === null) setChecked(false);
+        else if (rating === 0) {
+            setVotes((prevVotes : VotesMap): VotesMap => {
+                const newVotes = { ...prevVotes };
+                delete newVotes[place.id];
+                return newVotes;
+            });
             setChecked(false);
+        } else if (rating > 0) {
+            setVotes((prevVotes : VotesMap): VotesMap => ({
+                ...prevVotes,
+                [place.id]: rating
+            }));
         }
     }, [rating]);
     
@@ -23,8 +38,8 @@ function PlaceSection({ place }: { place: Place }) {
         <Container onClick={() => setChecked(!checked)}>
             <Checkbox onChange={() => setChecked(!checked)} checked={checked} />
             <Label>
-                <Typography style={{ fontSize: '1.2rem'}}>{place.name}</Typography>
-                <Typography color="gray" style={{ fontSize: '0.8rem' }}> ({place.type})</Typography>
+                <Typography color="primary" fontSize="1.2rem" fontWeight="bold">{place.name}</Typography>
+                <Typography color="gray" fontSize="0.8rem"> ({place.type})</Typography>
             </Label>
             {checked &&
                 <Rating
@@ -47,6 +62,7 @@ const Container = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    padding: 0 0.5rem;
     
     &:hover {
         background-color: #d1d1d1;

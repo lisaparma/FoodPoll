@@ -16,12 +16,11 @@ import GlassCard from "../GlassCard";
 import { VotesMap } from "../../types/Vote";
 import { Place } from "../../types/Place";
 import Firebase from "../../Firebase";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function PollCard() {
     const navigate = useNavigate();
-    const [params] = useSearchParams();
-    const id = params.get('id');
+    const { pollId } = useParams();
     
     const [name, setName] = useState("");
     const [votes, setVotes] = useState<VotesMap>({});
@@ -45,10 +44,10 @@ function PollCard() {
     ))
     
     const vote = useCallback(() => {
-        Firebase.addVote(id!, name, votes)
-            .then(() => navigate(`/result?id=${id}`))
+        Firebase.addVote(pollId!, name, votes)
+            .then(() => navigate(`/${pollId}/results`))
             .catch((error) => setError(error.message));
-    }, [id, name, votes, navigate]);
+    }, [pollId, name, votes, navigate]);
     
     return (
         <GlassCard error={error} setError={setError}>

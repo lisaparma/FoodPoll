@@ -23,8 +23,8 @@ function App() {
                 <Page>
                     <Routes>
                         <Route path="/" element={<MainButtons />} />
-                        <Route path="/poll" element={<PollCard />} />
-                        <Route path="/result" element={<ResultsCard />} />
+                        <Route path="/:pollId" element={<PollCard />} />
+                        <Route path="/:pollId/results" element={<ResultsCard />} />
                     </Routes>
                 </Page>
             </HashRouter>

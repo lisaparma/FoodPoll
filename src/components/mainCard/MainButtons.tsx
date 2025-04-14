@@ -13,13 +13,13 @@ function MainButtons() {
     
     const newPoll = () => {
         Firebase.createPoll()
-            .then((id) => navigate(`/poll?id=${id}`))
+            .then((id) => navigate(`/${id}`))
             .catch((error) => setError(error.message));
     }
     
-    const answerPoll = () => navigate(`/poll?id=${pollId}`);
+    const answerPoll = () => navigate(`/${pollId}`);
     
-    const resultsPoll = () => navigate(`/result?id=${pollId}`);
+    const resultsPoll = () => navigate(`/${pollId}/results`);
 
     return (
         <GlassCard error={error} setError={setError}>

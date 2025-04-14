@@ -1,7 +1,7 @@
 import React, { Dispatch, ReactNode, SetStateAction } from 'react';
 import styled from "styled-components";
 import { Alert, Snackbar, Typography, useTheme } from "@mui/material";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 type GlassCardProps = {
     error?: string;
@@ -10,8 +10,7 @@ type GlassCardProps = {
 }
 
 function GlassCard({ error, setError, children }: GlassCardProps) {
-    const [params] = useSearchParams();
-    const id = params.get('id');
+    const { pollId } = useParams();
     
     const theme = useTheme();
     
@@ -20,7 +19,7 @@ function GlassCard({ error, setError, children }: GlassCardProps) {
             <Card>
                 <Title $borderColor={theme.palette.primary.main}>
                     <Typography variant="h3" color="white">Food Poll</Typography>
-                    {id && <Typography fontSize="1.5rem" color={"secondary"}>#{id}</Typography>}
+                    {pollId && <Typography fontSize="1.5rem" color={"secondary"}>#{pollId}</Typography>}
                 </Title>
                 {children}
             </Card>

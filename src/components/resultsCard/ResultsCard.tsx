@@ -3,13 +3,12 @@ import { Button } from "@mui/material";
 import { Refresh } from '@mui/icons-material';
 import GlassCard from "../GlassCard";
 import Firebase from "../../Firebase";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { places } from "../../places";
 import { find, map } from 'lodash';
 
 function ResultsCard() {
-    const [params] = useSearchParams();
-    const id = params.get('id');
+    const { pollId } = useParams();
     
     const [results, setResults] = useState<any>({});
     const [voters, setVoters] = useState<string[]>([]);
@@ -17,20 +16,20 @@ function ResultsCard() {
     
     
     const loadData = useCallback(() => {
-        Firebase.getResults(id!)
+        Firebase.getResults(pollId!)
             .then(results => {
                 setResults(results.results)
                 setVoters(results.voters);
             })
             .catch((error) => setError(error.message));
-    }, [id]);
+    }, [pollId]);
     
     useEffect(() => {
         loadData();
     }, []);
     
     return (
-        <GlassCard>
+        <GlassCard error={error} setError={setError}>
             <h2 style={{ color: "white" }}>Risultati</h2>
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                 {map(results, (result: any) => {

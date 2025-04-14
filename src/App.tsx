@@ -5,7 +5,7 @@ import MainButtons from "./components/mainCard/MainButtons";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { grey, blueGrey,  } from '@mui/material/colors';
 import { HashRouter, Route, Routes } from "react-router-dom";
-
+import ResultsCard from "./components/resultsCard/ResultsCard";
 // @ts-ignore
 import backgroundImg from "./assets/food.png";
 
@@ -24,6 +24,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<MainButtons />} />
                         <Route path="/poll" element={<PollCard />} />
+                        <Route path="/result" element={<ResultsCard />} />
                     </Routes>
                 </Page>
             </HashRouter>

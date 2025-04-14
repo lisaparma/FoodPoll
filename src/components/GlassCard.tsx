@@ -1,22 +1,46 @@
-import React, { ReactNode } from 'react';
+import React, { Dispatch, ReactNode, SetStateAction } from 'react';
 import styled from "styled-components";
-import { Typography, useTheme } from "@mui/material";
+import { Alert, Snackbar, Typography, useTheme } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-function GlassCard({ children }: { children: ReactNode }) {
+type GlassCardProps = {
+    error?: string;
+    setError?: Dispatch<SetStateAction<string>>;
+    children: ReactNode;
+}
+
+function GlassCard({ error, setError, children }: GlassCardProps) {
     const [params] = useSearchParams();
     const id = params.get('id');
     
     const theme = useTheme();
     
     return (
-        <Card>
-            <Title $borderColor={theme.palette.primary.main}>
-                <Typography variant="h3" color="white">Food Poll</Typography>
-                {id && <Typography fontSize="1.5rem" color={"secondary"}>#{id}</Typography>}
-            </Title>
-            {children}
-        </Card>
+        <>
+            <Card>
+                <Title $borderColor={theme.palette.primary.main}>
+                    <Typography variant="h3" color="white">Food Poll</Typography>
+                    {id && <Typography fontSize="1.5rem" color={"secondary"}>#{id}</Typography>}
+                </Title>
+                {children}
+            </Card>
+            {error && (
+                <Snackbar
+                    open={!!error}
+                    autoHideDuration={5000}
+                    onClose={() => setError?.("")}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                >
+                    <Alert
+                        onClose={() => setError?.("")}
+                        severity="error"
+                        variant="filled"
+                    >
+                        {error}
+                    </Alert>
+                </Snackbar>
+            )}
+        </>
     );
 }
 

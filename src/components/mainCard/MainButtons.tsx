@@ -9,17 +9,20 @@ function MainButtons() {
     const navigate = useNavigate();
     
     const [pollId, setPollId] = useState("");
+    const [error, setError] = useState("");
     
     const newPoll = () => {
-        Firebase.createPoll().then((id) => navigate(`/poll?id=${id}`));
+        Firebase.createPoll()
+            .then((id) => navigate(`/poll?id=${id}`))
+            .catch((error) => setError(error.message));
     }
     
     const answerPoll = () => navigate(`/poll?id=${pollId}`);
     
-    const resultsPoll = () =>navigate(`/result?id=${pollId}`);
+    const resultsPoll = () => navigate(`/result?id=${pollId}`);
 
     return (
-        <GlassCard>
+        <GlassCard error={error} setError={setError}>
             <Button onClick={newPoll} variant="contained" size="large">Nuovo Poll</Button>
             <Box>
                 <Typography color="white">Il poll esiste già?</Typography>
@@ -45,7 +48,7 @@ function MainButtons() {
                         onClick={resultsPoll}
                         variant="contained"
                         color="secondary"
-                        disabled={true}
+                        disabled={pollId.length === 0}
                     >
                         Risultati
                     </Button>

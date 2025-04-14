@@ -3,20 +3,29 @@ import { groupBy, map } from 'lodash';
 import { places } from "../../places";
 import styled from "styled-components";
 import PlaceSection from "./PlaceSection";
-import { Typography, TextField, Button, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import {
+    Typography,
+    TextField,
+    Button,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+} from "@mui/material";
 import { Send, ExpandMore } from '@mui/icons-material';
 import GlassCard from "../GlassCard";
 import { VotesMap } from "../../types/Vote";
 import { Place } from "../../types/Place";
 import Firebase from "../../Firebase";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function PollCard() {
+    const navigate = useNavigate();
     const [params] = useSearchParams();
     const id = params.get('id');
     
     const [name, setName] = useState("");
     const [votes, setVotes] = useState<VotesMap>({});
+    const [error, setError] = useState("");
     
     const groupedPlaces = groupBy(places, (place: Place) =>
         place.location || 'Altro'
@@ -36,13 +45,13 @@ function PollCard() {
     ))
     
     const vote = useCallback(() => {
-        Firebase.addVote(id!, name, votes).then(() => {
-            Firebase.getResults(id!).then(results => console.log(results));
-        })
-    }, [id, name, votes]);
+        Firebase.addVote(id!, name, votes)
+            .then(() => navigate(`/result?id=${id}`))
+            .catch((error) => setError(error.message));
+    }, [id, name, votes, navigate]);
     
     return (
-        <GlassCard>
+        <GlassCard error={error} setError={setError}>
             <TextField
                 value={name}
                 onChange={e => setName(e.target.value)}

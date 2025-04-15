@@ -43,7 +43,7 @@ function PlaceSection({ place, setVotes }: PlaceSectionProps) {
             </Label>
             {checked &&
                 <Rating
-                    name="simple-controlled"
+                    max={3}
                     value={rating}
                     onChange={(event, newValue) => setRating(newValue)}
                     onClick={(event) => event.stopPropagation()}

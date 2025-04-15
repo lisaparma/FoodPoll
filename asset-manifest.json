@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/foodPoll/static/css/main.a59c2221.css",
-    "main.js": "/foodPoll/static/js/main.147b3ec2.js",
-    "static/media/food.png": "/foodPoll/static/media/food.b1ac4d016f4e7514c34a.png",
-    "index.html": "/foodPoll/index.html",
-    "main.a59c2221.css.map": "/foodPoll/static/css/main.a59c2221.css.map",
-    "main.147b3ec2.js.map": "/foodPoll/static/js/main.147b3ec2.js.map"
+    "main.css": "/FoodPoll/static/css/main.a59c2221.css",
+    "main.js": "/FoodPoll/static/js/main.fea8c2fe.js",
+    "static/media/food.png": "/FoodPoll/static/media/food.b1ac4d016f4e7514c34a.png",
+    "index.html": "/FoodPoll/index.html",
+    "main.a59c2221.css.map": "/FoodPoll/static/css/main.a59c2221.css.map",
+    "main.fea8c2fe.js.map": "/FoodPoll/static/js/main.fea8c2fe.js.map"
   },
   "entrypoints": [
     "static/css/main.a59c2221.css",
-    "static/js/main.147b3ec2.js"
+    "static/js/main.fea8c2fe.js"
   ]
 }

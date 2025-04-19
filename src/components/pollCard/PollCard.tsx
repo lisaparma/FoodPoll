@@ -27,7 +27,7 @@ function PollCard() {
     const [error, setError] = useState("");
     
     const groupedPlaces = groupBy(places, (place: Place) =>
-        place.location || 'Altro'
+        place.zone || 'Altro'
     );
     
     const Locations = map(groupedPlaces, (group, location) => (

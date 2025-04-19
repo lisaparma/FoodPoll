@@ -1,6 +1,7 @@
 import { initializeApp, FirebaseApp } from "firebase/app";
 import { getFirestore, collection, addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { VotesMap } from "./types/Vote";
+import { forEach } from "lodash";
 
 class Firebase {
     
@@ -91,11 +92,11 @@ class Firebase {
                 const data = snapshot.data();
                 const votersMap = data?.voters || {};
                 
-                const stats: Record<string, { total: number; count: number }> = [];
+                const stats: {[placeId: string]: { total: number; count: number }} = {};
                 
                 const voterList: { name: string; createdAt: Date }[] = [];
                 
-                Object.values(votersMap).forEach((voter: any) => {
+                forEach(votersMap, (voter: any) => {
                     if (voter.name && voter.createdAt) {
                         voterList.push({
                             name: voter.name,
@@ -120,9 +121,8 @@ class Firebase {
                         placeId,
                         total,
                         count,
-                        avg: total / count
-                    }))
-                    .sort((a, b) => b.avg - a.avg);
+                        avg: total / voterList.length,
+                    }));
                 
                 return {
                     results,

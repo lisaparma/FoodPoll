@@ -9,12 +9,12 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
-import { Refresh, Poll, HowToReg } from '@mui/icons-material';
+import { Refresh, Poll, HowToReg, MilitaryTech } from '@mui/icons-material';
 import GlassCard from "../GlassCard";
 import Firebase from "../../Firebase";
 import { useParams } from "react-router-dom";
 import { places } from "../../places";
-import { find, map } from 'lodash';
+import { find, last, map, sortBy } from 'lodash';
 import styled from "styled-components";
 
 function ResultsCard() {
@@ -28,7 +28,7 @@ function ResultsCard() {
     const loadData = useCallback(() => {
         Firebase.getResults(pollId!)
             .then(results => {
-                setResults(results.results)
+                setResults(results.results.sort((a: any, b: any) => b.avg - a.avg));
                 setVoters(results.voters);
             })
             .catch((error) => setError(error.message));
@@ -37,6 +37,21 @@ function ResultsCard() {
     useEffect(() => {
         loadData();
     }, []);
+    
+    const bestScore = useMemo(() => {
+        const place = last(sortBy(results, ['avg', 'total']));
+        return find(places, { id: place?.placeId });
+    }, [results]);
+    
+    const secondBestScore = useMemo(() => {
+        const place = sortBy(results, ['avg', 'total'])[results.length - 2];
+        return find(places, { id: place?.placeId });
+    }, [results]);
+    
+    const thirdBestScore = useMemo(() => {
+        const place = sortBy(results, ['avg', 'total'])[results.length - 3];
+        return find(places, { id: place?.placeId });
+    }, [results]);
     
     const ResultsRows = useMemo(() => map(results, (row) => {
         const place = find(places, { id: row.placeId });
@@ -56,6 +71,27 @@ function ResultsCard() {
     
     return (
         <GlassCard error={error} setError={setError}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+                <div style={{ display: "flex", gap: "0.5rem", color: 'gold', alignItems: "center", alignSelf: "center" }}>
+                    <MilitaryTech />
+                    <Typography variant="h2" fontSize="1.5rem" fontWeight="bold">{bestScore?.name}</Typography>
+                    <MilitaryTech />
+                </div>
+                {secondBestScore && (
+                    <div style={{ display: "flex", gap: "0.5rem", color: 'silver', alignItems: "center", alignSelf: "center" }}>
+                        <MilitaryTech style={{ fontSize: '1.3rem'}} />
+                        <Typography variant="h3" fontSize="1.3rem" fontWeight="bold">{secondBestScore?.name}</Typography>
+                        <MilitaryTech style={{ fontSize: '1.3rem'}} />
+                    </div>
+                )}
+                {thirdBestScore && (
+                    <div style={{ display: "flex", gap: "0.5rem", color: 'sandybrown', alignItems: "center", alignSelf: "center" }}>
+                        <MilitaryTech style={{ fontSize: '1.1rem'}} />
+                        <Typography variant="h3" fontSize="1.1rem" fontWeight="bold">{thirdBestScore?.name}</Typography>
+                        <MilitaryTech style={{ fontSize: '1.1rem'}} />
+                    </div>
+                )}
+            </div>
             <div style={{ display: "flex", gap: "0.5rem", color: 'white', alignItems: "center" }}>
                 <Poll/>
                 <Typography variant="h2" color="white" fontSize="1.5rem" fontWeight="bold">Risultati</Typography>
@@ -66,7 +102,7 @@ function ResultsCard() {
                         <TableHead>
                             <TableRow>
                                 <TableCell style={{ fontWeight: 'bold'}}>Posto</TableCell>
-                                <TableCell align="right" style={{ fontWeight: 'bold'}}>Media</TableCell>
+                                <TableCell align="right" style={{ fontWeight: 'bold'}}>Punteggio</TableCell>
                                 <TableCell align="right" style={{ fontWeight: 'bold'}}>N. di votanti</TableCell>
                             </TableRow>
                         </TableHead>

@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/FoodPoll/static/css/main.a59c2221.css",
-    "main.js": "/FoodPoll/static/js/main.fea8c2fe.js",
+    "main.js": "/FoodPoll/static/js/main.df9d14f3.js",
     "static/media/food.png": "/FoodPoll/static/media/food.b1ac4d016f4e7514c34a.png",
     "index.html": "/FoodPoll/index.html",
     "main.a59c2221.css.map": "/FoodPoll/static/css/main.a59c2221.css.map",
-    "main.fea8c2fe.js.map": "/FoodPoll/static/js/main.fea8c2fe.js.map"
+    "main.df9d14f3.js.map": "/FoodPoll/static/js/main.df9d14f3.js.map"
   },
   "entrypoints": [
     "static/css/main.a59c2221.css",
-    "static/js/main.fea8c2fe.js"
+    "static/js/main.df9d14f3.js"
   ]
 }

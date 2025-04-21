@@ -3,7 +3,8 @@ export type Place = {
     name: string;
     type: string;
     zone: string;
-    location?: string;
+    location: string;
+    website?: string;
     menu?: string;
 }
 

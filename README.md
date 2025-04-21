@@ -1,16 +1,14 @@
 # 🍽️ Food Poll
 
-A tiny app to stop wasting hours deciding where to go 😅🍕
+A tiny app to stop wasting hours deciding where to go to eat near _Torri di Quartesolo_ 😅🍕
 
 👉 **Try it here:** [https://lisaparma.github.io/FoodPoll/](https://lisaparma.github.io/FoodPoll/)
 
----
 
 ## What is this?
 
 A super simple app to vote on where to eat. No more endless debates, just tap and decide.
 
----
 
 ## How it works
 This app is designed to make group decisions easy and fun. Here’s how to use it in just a few steps:
@@ -37,15 +35,14 @@ You can see who voted, which places are most popular, and what the final ranking
 
 Anyone with the link can check the results.
 
----
 
 ## Tech stack
+This project was built with simplicity and speed in mind, using:
+- React — for building interactive UI components 
+- TypeScript — for safer, typed code and better dev experience 
+- Firebase (Firestore) — to store polls and votes in real time 
+- Styled Components — for clean visuals and animations 
+- GitHub Pages — for easy, free hosting
 
-> This project was built with simplicity and speed in mind, using: \
-•	React — for building interactive UI components \
-•	TypeScript — for safer, typed code and better dev experience \
-•   Firebase (Firestore) — to store polls and votes in real time \
-•   Styled Components — for clean visuals and animations \
-•	GitHub Pages — for easy, free hosting \
 All client-side, no backend needed. Fast to load, fun to use ✨
 
